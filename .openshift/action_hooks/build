@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $OPENSHIFT_DIY_DIR/lqfb/liquid_feedback_core-v2.2.1
+cd $OPENSHIFT_REPO_DIR/lqfb/liquid_feedback_core-v2.2.1
 make
-mkdir $OPENSHIFT_DIY_DIR/liquid_feedback_core
-cp core.sql lf_update $OPENSHIFT_DIY_DIR/liquid_feedback_core/
+mkdir $OPENSHIFT_REPO_DIR/liquid_feedback_core
+cp core.sql lf_update $OPENSHIFT_REPO_DIR/liquid_feedback_core/
