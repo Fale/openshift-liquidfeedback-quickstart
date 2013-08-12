@@ -31,13 +31,16 @@ fi
 #fi
 
 
+#
+## Install LiquidFeedback Core 2.2.1
+#
 cd $OPENSHIFT_REPO_DIR/lqfb/liquid_feedback_core-v2.2.1
 make
 mkdir $OPENSHIFT_REPO_DIR/liquid_feedback_core
 cp core.sql lf_update $OPENSHIFT_REPO_DIR/liquid_feedback_core/
 
 cd $OPENSHIFT_REPO_DIR/liquid_feedback_core
-createdb liquid_feedback
+createdb -h $OPENSHIFT_POSTGRESQL_DB_HOST -p $OPENSHIFT_POSTGRESQL_DB_PORT -U $OPENSHIFT_POSTGRESQL_DB_USERNAME liquid_feedback
 createlang plpgsql liquid_feedback
 psql -v ON_ERROR_STOP=1 -f core.sql liquid_feedback
 echo "INSERT INTO system_setting (member_ttl) VALUES ('1 year');" | psql liquid_feedback
