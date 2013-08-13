@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#
+## Install LiquidFeedback Core 2.2.1 Database if it's the first install
+#
+
+
+# Confirm database exists, if not create it
+if ! echo "SHOW TABLES;" | psql liquid_feedback > /dev/null 2>&1
+then
+    echo
+    echo "Database not found!  Creating and importing"
+    echo
+    cd $OPENSHIFT_REPO_DIR/liquid_feedback_core
+    createdb liquid_feedback
+    createlang plpgsql liquid_feedback
+    psql -v ON_ERROR_STOP=1 -f core.sql liquid_feedback
+    echo "INSERT INTO system_setting (member_ttl) VALUES ('1 year');" | psql liquid_feedback
+    echo "INSERT INTO contingent (polling, time_frame, text_entry_limit, initiative_limit) VALUES (false, '1 hour', 20, 6);" | psql liquid_feedback
+    echo "INSERT INTO contingent (polling, time_frame, text_entry_limit, initiative_limit) VALUES (false, '1 day', 80, 12);" | psql liquid_feedback
+    echo "INSERT INTO contingent (polling, time_frame, text_entry_limit, initiative_limit) VALUES (true, '1 hour', 200, 60);" | psql liquid_feedback
+    echo "INSERT INTO contingent (polling, time_frame, text_entry_limit, initiative_limit) VALUES (true, '1 day', 800, 120);" | psql liquid_feedback
+    echo "INSERT INTO policy (index, name, admission_time, discussion_time, verification_time, voting_time, issue_quorum_num, issue_quorum_den, initiative_quorum_num, initiative_quorum_den) VALUES (1, 'Default policy', '8 days', '15 days', '8 days', '15 days', 10, 100, 10, 100);" | psql liquid_feedback
+    echo "INSERT INTO unit (name) VALUES ('Our organization');" | psql liquid_feedback
+    echo "INSERT INTO area (unit_id, name) VALUES (1, 'Default area');" | psql liquid_feedback
+    echo "INSERT INTO allowed_policy (area_id, policy_id, default_policy) VALUES (1, 1, TRUE);" | psql liquid_feedback
+
+    echo "done."
+    echo "=================================================="
+#    echo "  Wiki-Admin login: admin"
+#    echo "  Wiki-Admin password: OpenShiftAdmin"
+#    echo "  Don't forget to change your wiki admin password!"
+    echo "=================================================="
+else
+    echo "Database found, skipping build"
+fi
+
+
+
