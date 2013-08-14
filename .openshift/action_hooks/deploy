@@ -6,7 +6,7 @@
 
 
 # Confirm database exists, if not create it
-if ! echo "SHOW TABLES;" | psql liquid_feedback > /dev/null 2>&1
+if ! psql -l | grep <exact_dbname> | wc -l
 then
     echo
     echo "Database not found!  Creating and importing"
@@ -34,6 +34,3 @@ then
 else
     echo "Database found, skipping build"
 fi
-
-
-
