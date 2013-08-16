@@ -6,7 +6,7 @@
 
 
 # Confirm database exists, if not create it
-if ! (psql -lqt | cut -d \| -f 1 | grep -w <db_name> | wc -l)
+if ! (psql -lqt | cut -d \| -f 1 | grep -w liquid_feedback | wc -l)
 then
     echo
     echo "Database not found!  Creating and importing"
