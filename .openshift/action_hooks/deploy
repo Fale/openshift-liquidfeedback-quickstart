@@ -24,13 +24,12 @@ then
     echo "INSERT INTO unit (name) VALUES ('Our organization');" | psql liquid_feedback
     echo "INSERT INTO area (unit_id, name) VALUES (1, 'Default area');" | psql liquid_feedback
     echo "INSERT INTO allowed_policy (area_id, policy_id, default_policy) VALUES (1, 1, TRUE);" | psql liquid_feedback
-
     echo "done."
     echo "=================================================="
 #    echo "  Wiki-Admin login: admin"
 #    echo "  Wiki-Admin password: OpenShiftAdmin"
 #    echo "  Don't forget to change your wiki admin password!"
-    echo "=================================================="
+#    echo "=================================================="
 else
     echo "Database found, skipping build"
 fi
