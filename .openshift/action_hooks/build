@@ -21,3 +21,11 @@ make
 mkdir $OPENSHIFT_REPO_DIR/liquid_feedback_core
 cp core.sql lf_update $OPENSHIFT_REPO_DIR/liquid_feedback_core/
 
+#
+## Install WebMCP 1.2.5
+#
+cd $OPENSHIFT_REPO_DIR/lqfb/webmcp-v1.2.5
+#vi Makefile.options  # append  -I /usr/include/lua5.1  at end of CFLAGS line
+make
+mkdir $OPENSHIFT_REPO_DIR/webmcp
+cp -RL framework/* $OPENSHIFT_REPO_DIR/webmcp/
