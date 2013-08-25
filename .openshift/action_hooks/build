@@ -24,8 +24,9 @@ cp core.sql lf_update $OPENSHIFT_REPO_DIR/liquid_feedback_core/
 #
 ## Install WebMCP 1.2.5
 #
+export OPENSHIFT_REPO_DIR_SAFE=$(echo $OPENSHIFT_REPO_DIR | sed -r 's/\//\\\//g')
 cd $OPENSHIFT_REPO_DIR/lqfb/webmcp-v1.2.5
-sed -i "s/CFLAGS .*/CFLAGS = -O2 -D_GNU_SOURCE -fPIC -Wall -I \/usr\/include -I \/usr\/local\/include -I $OPENSHIFT_REPO_DIR\/lqfb\/lua-5.1.4/" Makefile.options
+sed -i 's/CFLAGS .*/CFLAGS = -O2 -D_GNU_SOURCE -fPIC -Wall -I \/usr\/include -I \/usr\/local\/include -I '$OPENSHIFT_REPO_DIR_SAFE'lqfb\/lua-5.1.4/' Makefile.options
 sed -i "s/CFLAGS_PGSQL .*/CFLAGS_PGSQL = -I \/usr\/include\/pgsql -I \/usr\/include\/pgsql\/server -I \/usr\/local\/include\/pgsql -I \/usr\/local\/include\/pgsql\/server\//" Makefile.options
 make
 mkdir $OPENSHIFT_REPO_DIR/webmcp
