@@ -31,3 +31,11 @@ sed -i "s/CFLAGS_PGSQL .*/CFLAGS_PGSQL = -I \/usr\/include\/pgsql -I \/usr\/incl
 make
 mkdir $OPENSHIFT_REPO_DIR/webmcp
 cp -RL framework/* $OPENSHIFT_REPO_DIR/webmcp/
+
+#
+## Install RocketWiki 0.4
+#
+cd $OPENSHIFT_REPO_DIR/lqfb/rocketwiki-lqfb-v0.4
+make
+mkdir $OPENSHIFT_REPO_DIR/rocketwiki-lqfb
+cp rocketwiki-lqfb rocketwiki-lqfb-compat $OPENSHIFT_REPO_DIR/rocketwiki-lqfb/
